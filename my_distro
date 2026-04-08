@@ -1,6 +1,6 @@
-//Install dependencies
-    //sudo apt update
-    //sudo apt install -y git vim make gcc libncurses-dev flex bison bc \cpio libelf-dev libssl-dev syslinux dosfstools qemu-system-x86 
+Install dependencies
+    sudo apt update
+    sudo apt install -y git vim make gcc libncurses-dev flex bison bc \cpio libelf-dev libssl-dev syslinux dosfstools qemu-system-x86 
         What is each package for?
         gcc, make — kernel and BusyBox compilation
         libncurses-dev — interactive configuration menus (menuconfig)
@@ -10,3 +10,16 @@
         syslinux — the bootloader
         dosfstools — to create the FAT filesystem
         qemu-system-x86 — to test the image without the need for real hardware
+
+Compile the Linux kernel
+    Clone the kernel repository (only the latest commit to save time and space):
+        git clone --depth 1 https://github.com/torvalds/linux.git 
+        cd linux 
+    With configure the compilation options: 
+        make menuconfig
+    Compile the kernel (adjust -j to the number of available cores)
+        make -j 2 
+    Copy the kernel image to a working directory:
+        sudo mkdir /boot-files 
+        sudo cp arch/x86/boot/bzImage /boot-files/ 
+        cd ..
